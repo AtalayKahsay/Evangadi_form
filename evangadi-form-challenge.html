@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS PRACTICE From Evangadi</title>
+  <link rel="icon" href="../../puppy-page/images/logo-html-png.png">
+  <style>
+    input {
+      padding: 0.5rem;
+    }
+    button {
+      color: white;
+      background-color: rgb(218, 10, 218);
+      padding: 1px 8px;
+    }
+    .error {
+      color: red;
+      margin: 0;
+    }
+    .result {
+      color: green;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  
+
+<h1>JS Form Challenge</h1>
+
+<form class="formClass">
+  <p>
+   <input class="fname" type="text" placeholder="full name">
+  </p>
+  <p class="error"></p>
+  
+  <p>
+   <input class="email" type="text" placeholder="your email">
+  </p>
+  <p class="error"></p>
+
+  <p>
+   <input class="age" type="text" placeholder="your age">
+  </p>
+  <p class="error"></p>
+
+  <p>
+   <input class="passKey" type="password" placeholder="your password">
+  </p>
+  <p class="error"></p>
+
+  <p>
+   <input class="confirmKey" type="password" placeholder="confirm password">
+  </p>
+  <p class="error"></p>
+
+  <p>
+    <button class="btn" type="submit">Submit</button>
+  </p>
+</form>
+<p class="result"></p>
+
+<script>
+  let submitBtn = document.querySelector('.btn');
+  submitBtn.addEventListener('click', checkValidity);
+
+  function checkValidity(event) {
+    event.preventDefault();
+    let myInput = document.querySelectorAll('.formClass input');
+    let errorMessage = document.querySelectorAll('.error');
+    let resultMessage = document.querySelector('.result');
+
+    myInput.forEach(inp => inp.style.backgroundColor = '');
+    resultMessage.textContent = '';
+    errorMessage.forEach(err => err.textContent = '');
+
+    let fullName = myInput[0].value;
+    let emailField = myInput[1].value;
+    let ageField = myInput[2].value;
+    let password = myInput[3].value;
+    let confirmKey  = myInput[4].value;
+    let hasError = false;
+
+    if (fullName.trim() === '') {
+    myInput[0].style.backgroundColor = 'pink';
+    myInput[0].style.border = '2px solid red';
+    errorMessage[0].textContent = 'Please enter your name.';
+    hasError = true;
+
+    } else if (!/^[A-Za-z\s]+$/.test(fullName)) {
+      myInput[0].style.backgroundColor = 'pink';
+      myInput[0].style.border = '2px solid red';
+      errorMessage[0].textContent = 'Name can only contain letters.';
+      hasError = true;
+
+    } else if (fullName.length < 3) {
+      myInput[0].style.backgroundColor = 'pink';
+      myInput[0].style.border = '2px solid red';
+      errorMessage[0].textContent = 'Name must be at least 3 characters.';
+      hasError = true;
+    }
+    if (emailField.trim() === '') {
+      myInput[1].style.backgroundColor = 'pink';
+      myInput[1].style.border = '2px solid red';
+      errorMessage[1].textContent = 'Please enter your email.';
+      hasError = true;
+    } else if (!(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailField))) {
+      myInput[1].style.backgroundColor = 'pink';
+      myInput[1].style.border = '2px solid red';
+      errorMessage[1].textContent = 'Invalid email.';
+      hasError = true;
+    } 
+    if (ageField.trim() === '') {
+      myInput[2].style.backgroundColor = 'pink';
+      myInput[2].style.border = '2px solid red';
+      errorMessage[2].textContent = 'Enter your age.';
+      hasError = true;
+    } else if (isNaN(ageField)) {
+      myInput[2].style.backgroundColor = 'pink';
+      myInput[2].style.border = '2px solid red';
+      errorMessage[2].textContent = 'Age must be a number.';
+      hasError = true;
+    } else if (Number(ageField) < 16 || Number(ageField) > 60) {
+      myInput[2].style.backgroundColor = 'pink';
+      myInput[2].style.border = '2px solid red';
+      errorMessage[2].textContent = 'Age must be between 16 and 60.';
+      hasError = true;
+    }
+    if (password.length < 6) {
+      myInput[3].style.backgroundColor = 'pink';
+      myInput[3].style.border = '2px solid red';
+      errorMessage[3].textContent = 'Your password must contain at least 6 characters.';
+      hasError = true;
+    }
+    if (confirmKey.trim() === '') {
+      myInput[4].style.backgroundColor = 'pink';
+      myInput[4].style.border = '2px solid red';
+      errorMessage[4].textContent = 'Please confirm your password.';
+      hasError = true;
+    } else if (confirmKey !== password) {
+      myInput[4].style.backgroundColor = 'pink';
+      myInput[4].style.border = '2px solid red';
+      errorMessage[4].textContent = 'Passwords do not match.';
+      hasError = true;
+    }
+    if (!hasError) {
+      resultMessage.textContent = 'Form submitted successfully.';
+      myInput.forEach(inp => inp.style.border = '2px solid green');
+    }
+  }
+</script>
+</body>
+</html> 
